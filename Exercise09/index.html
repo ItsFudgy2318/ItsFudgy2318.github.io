@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>s1133524's Exercise 09</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form > div {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/submit-form-data" method="post">
+
+        <div>
+            <label for="firstName">First name:</label>
+            <input type="text" id="firstName" name="firstName" 
+                   value="Wei" 
+                   aria-label="First name input">
+        </div>
+
+        <div>
+            <label for="lastName">Last name:</label>
+            <input type="text" id="lastName" name="lastName" 
+                   value="Che-Sen" 
+                   aria-label="Last name input">
+        </div>
+
+        <div>
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" name="studentId" 
+                   value="1133524" 
+                   aria-label="Student ID input">
+        </div>
+
+        <input type="submit" value="Submit">
+
+        <input type="reset" value="Reset">
+
+    </form>
+
+</body>
+</html>
