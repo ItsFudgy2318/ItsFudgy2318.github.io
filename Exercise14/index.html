@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Headings Box</title>
-  <style>
+<meta charset="UTF-8">
+<title>Headings Box</title>
+
+<style>
     body {
-      font-family: "Times New Roman", serif;
-      background:#f5f5f5;
+        font-family: "Times New Roman", serif;
+        background: #f5f5f5;
     }
 
-    /* Outer box */
-    .heading-box {
-      width: 460px;
-      margin: 40px auto;
-      padding: 15px 20px 12px;
-      background: #ffffff;
-      border: 1px solid #cccccc;
-      box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    .box {
+        width: 450px;
+        margin: 40px auto;
+        padding: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
 
-    /* Heading 1 */
+    /* Heading 1 – 粗體、底線在下方、紅色陰影 */
     h1 {
-      margin: 0 0 10px 0;
-      font-size: 32px;
-      font-weight: bold;
-      border-bottom: 3px solid #000000;
-      display: inline-block;
+        margin: 0 0 15px 0;
+        font-size: 32px;
+        font-weight: bold;
+        padding-bottom: 3px;
+        border-bottom: 3px solid black;
+        text-shadow: 2px 2px 0px red;  /* 紅色陰影 */
+        display: inline-block;
     }
 
-    /* Heading 2 (yellow box, italic) */
+    /* Heading 2 – 粗體、黃色框 + 黑色內框 */
     h2 {
-      margin: 0 0 15px 0;
-      font-size: 22px;
-      font-style: italic;
-      font-weight: normal;
-      border: 2px solid #e3d200;   /* yellow border */
-      padding: 4px 6px;
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 6px;
+        border: 2px solid #e5dd00;      /* 外黃色框 */
+        box-shadow: inset 0 0 0 2px black;  /* 黑色內框 */
+        background: white;
     }
 
-    /* Heading 3 (bottom-right, underlined) */
+    /* Heading 3 – 無斜體，只有粗體 */
     h3 {
-      margin: 0;
-      font-size: 18px;
-      font-style: italic;
-      font-weight: normal;
-      text-align: right;
-      text-decoration: underline;
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: right;
+        text-decoration: underline;
     }
-  </style>
+</style>
+
 </head>
 <body>
 
-<div class="heading-box">
-  <h1>This is heading 1</h1>
-  <h2>This is heading 2</h2>
-  <h3>This is heading 3</h3>
+<div class="box">
+    <h1>This is heading 1</h1>
+    <h2>This is heading 2</h2>
+    <h3>This is heading 3</h3>
 </div>
 
 </body>
