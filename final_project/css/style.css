@@ -1,0 +1,854 @@
+/* 基礎重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Poppins 字體 */
+    font-family: 'Poppins', sans-serif; 
+}
+
+@font-face {
+    font-family: 'Horizon';
+    src: url('../font/Horizon.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 顏色變數 */
+:root {
+    --color-dark: #0f1012; /* 更深的背景色，模仿圖片 */
+    --color-dark-surface: #1e1e1e; /* 區塊背景 */
+    --color-red-f1: #E10600; /* F1 紅色 */
+    --color-text-light: #F0F0F0; /* 淺色文字 */
+    --color-text-muted: #A0A0A0; /* 輔助文字 */
+    --color-sdg-yellow: #FFB700; /* SDG 7: 能源 */
+    --color-sdg-green: #4C9F38; /* SDG 3: 健康 */
+    --color-sdg-pink: #FF3A21; /* SDG 5: 平等 */
+    --spacing: 20px;
+    --section-padding: 80px 5%;
+}
+
+body {
+    background-color: var(--color-dark);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--color-text-light); /* 連結預設為淺色 */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--color-red-f1);
+}
+
+h1, h2, h3 {
+    margin-bottom: var(--spacing);
+    font-weight: 700;
+}
+
+/* --- Header & Navigation (專業 F1 樣式) --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%; /* 較薄的 Header */
+    background-color: var(--color-dark-surface); /* 較淺的暗色 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid var(--color-red-f1);
+    /* 模仿圖片，將紅色線條移到主視覺區塊 */
+    border-bottom: none; 
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.f1-logo {
+    font-size: 1.2rem; /* 為了容納更多文字，縮小字體 */
+    font-weight: 800;
+    color: var(--color-text-light);
+    margin-right: 30px;
+    letter-spacing: 0.5px; /* 增加可讀性 */
+}
+
+/* 新增圖片 Logo 的樣式 */
+.f1-logo-link {
+    display: flex; /* 讓圖片能保持其內容尺寸並對齊 */
+    align-items: center;
+    margin-right: 30px; /* Logo 與導覽列之間的間距 */
+}
+
+.f1-logo-img {
+    max-height: 50px; /* 根據您的 Logo 實際高度調整 */
+    width: auto; /* 保持圖片比例 */
+    transition: transform 0.3s ease; /* 添加懸停效果 */
+}
+
+.f1-logo-img:hover {
+    transform: scale(1.05); /* 懸停時稍微放大 */
+}
+
+/* RWD 調整，讓 Logo 在小螢幕時縮小 */
+@media (max-width: 768px) {
+    .f1-logo-link {
+        margin-right: 15px; /* 在手機版減少間距 */
+    }
+    .f1-logo-img {
+        max-height: 40px; /* 手機版 Logo 縮小一點 */
+    }
+}
+
+.nav a {
+    margin-left: 20px;
+    padding: 5px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+    color: var(--color-red-f1);
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 2px solid var(--color-red-f1);
+}
+
+.search-icon, .menu-icon {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+.auth-links {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.subscribe-btn {
+    background-color: var(--color-red-f1);
+    color: var(--color-dark);
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-weight: 700;
+    transition: opacity 0.3s;
+}
+
+#lang-toggle {
+    margin-left: 20px;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-text-muted);
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: border-color 0.3s, color 0.3s;
+    font-size: 0.8rem;
+}
+
+#lang-toggle:hover {
+    border-color: var(--color-red-f1);
+    color: var(--color-red-f1);
+}
+
+
+/* --- Hero Section (新聞佈局) --- */
+.hero-news-style {
+    /* 這裡需要替換成您的 F1 賽車圖片路徑 */
+    background: url('../images/home.png') no-repeat center center/cover;
+    height: 600px; 
+    display: flex;
+    align-items: flex-end; /* 標題靠下 */
+    justify-content: flex-start;
+    position: relative;
+    padding: 0 5%;
+    overflow: hidden; /* 確保斜線不會溢出 */
+}
+
+/* 遮罩層以確保文字可讀性 */
+.hero-news-style::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    z-index: 3;
+    max-width: 800px;
+    padding-bottom: 80px; /* 底部空間 */
+}
+
+.news-tag {
+    display: inline-block;
+    background-color: var(--color-red-f1);
+    color: var(--color-dark);
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    text-transform: none; /* 標題不強制大寫 */
+    line-height: 1.2;
+    margin-bottom: 10px;
+    font-weight: 800;
+    color: var(--color-text-light);
+}
+
+.hero-intro {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--color-text-muted);
+}
+
+.read-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-red-f1);
+}
+
+.read-more-link:hover {
+    color: var(--color-text-light);
+}
+
+
+/* --- Feature Blocks (UP NEXT 樣式) --- */
+.up-next-style {
+    padding: 40px 5%; /* 較小的間距 */
+    text-align: left;
+    background-color: var(--color-dark-surface);
+}
+
+.section-title-tag {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-red-f1);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.card-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.news-card {
+    /* 覆蓋 feature-card 樣式 */
+    background-color: var(--color-dark);
+    padding: 25px;
+    border-radius: 0; /* 移除圓角 */
+    border: none;
+    border-left: 3px solid var(--color-dark); /* 預設為暗色，偽裝為無邊框 */
+    width: 33%;
+    min-height: 200px;
+    transition: border-left-color 0.3s, background-color 0.3s;
+}
+
+.news-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-left-color: var(--color-red-f1);
+    background-color: #1a1a1a;
+}
+
+.card-category {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-red-f1);
+    margin-right: 15px;
+    text-transform: uppercase;
+}
+
+.card-date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.news-card h3 {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 60px;
+}
+
+.news-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+    min-height: 40px;
+}
+
+/* SDG 顏色強調 (這裡主要使用 F1 紅色作為主要強調色，SDG 顏色可作為輔助色塊使用) */
+#energy.sdg-yellow { border-left-color: var(--color-sdg-yellow); }
+#health.sdg-green { border-left-color: var(--color-sdg-green); }
+#equality.sdg-pink { border-left-color: var(--color-sdg-pink); }
+
+
+/* --- Game Preview (遊戲模塊) --- */
+.game-module {
+    padding: var(--section-padding);
+    text-align: center;
+    background-color: var(--color-dark);
+}
+
+.game-module h2 {
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.game-image {
+    max-width: 800px;
+    margin: 40px auto;
+    border: 5px solid var(--color-red-f1);
+    border-radius: 5px;
+    overflow: hidden;
+    height: 400px;
+    background-color: var(--color-dark-surface);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 20px rgba(225, 6, 0, 0.3);
+}
+
+.secondary-button {
+    background-color: var(--color-red-f1);
+    border: none;
+    color: var(--color-dark);
+    padding: 12px 30px;
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+
+.secondary-button:hover {
+    background-color: var(--color-text-light);
+    color: var(--color-dark);
+}
+
+/* --- Sponsors (贊助商區塊) --- */
+.sponsors {
+    padding: 40px 5%;
+    text-align: center;
+    border-top: 1px solid #333;
+    background-color: var(--color-dark-surface);
+}
+
+.sponsors h2 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing);
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sponsor-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    min-height: 60px;
+}
+
+.logo-item {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    transition: opacity 0.3s, color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo-item:hover {
+    opacity: 0.8;
+    color: var(--color-text-light);
+}
+
+/* --- Footer (頁腳) --- */
+.footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    background-color: var(--color-dark);
+}
+
+
+/* --- 響應式設計 (RWD) --- */
+@media (max-width: 1024px) {
+    .card-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .news-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-news-style {
+        height: 500px;
+    }
+
+    .hero-news-style::before {
+        width: 300px;
+        transform: skewY(10deg);
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .header-left .nav {
+        display: none;
+    }
+
+    .nav {
+        /* 手機漢堡選單樣式 */
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 48px;
+        left: 0;
+        background-color: var(--color-dark-surface);
+        border-top: 1px solid #333;
+    }
+    
+    .nav a {
+        margin: 0;
+        padding: 12px 5%;
+        border-bottom: 1px solid #2a2a2a;
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+}
+
+/*
+ * ============================================
+ * === 分頁通用與 Energy & Innovation 樣式 ===
+ * ============================================
+ */
+
+/* 確保當前頁面的導覽連結有視覺上的區別 */
+.active-nav {
+    color: var(--color-red-f1) !important;
+    border-bottom: 2px solid var(--color-red-f1) !important;
+}
+
+/* 頂部英雄區塊樣式 (分頁專用) */
+.page-hero-header {
+    background-color: var(--color-dark-surface);
+    padding: 100px 5% 50px; /* 頂部 padding 較大 */
+    border-bottom: 4px solid var(--color-sdg-yellow); /* 用 SDG 顏色作為頁面識別 */
+}
+
+.page-hero-header .header-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* SDG Tag 樣式 */
+.sdg-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    color: var(--color-dark); /* SDG Tag 上的文字使用暗色 */
+}
+
+.sdg-yellow-bg {
+    background-color: var(--color-sdg-yellow);
+}
+/* 其他 SDG 顏色 tag 預留 */
+.sdg-green-bg { background-color: var(--color-sdg-green); }
+.sdg-pink-bg { background-color: var(--color-sdg-pink); }
+
+
+.page-hero-header h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    color: var(--color-text-light);
+}
+
+.page-hero-header p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+/* 內容區塊樣式 */
+.content-section {
+    padding: 60px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+    border-left: 5px solid var(--color-red-f1);
+    padding-left: 15px;
+    margin-bottom: 40px;
+}
+
+.text-block h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-sdg-yellow); /* 能源分頁強調色 */
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.text-block p {
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+}
+
+/* 能源追蹤器表格樣式 */
+.energy-tracker {
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
+}
+
+.tracker-dashboard {
+    overflow-x: auto;
+    margin-top: 30px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.energy-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; 
+}
+
+.energy-data-table th, .energy-data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 0.95rem;
+}
+
+.energy-data-table th {
+    background-color: var(--color-dark-surface);
+    color: var(--color-red-f1);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.energy-data-table tr:hover {
+    background-color: #222;
+}
+
+/* 表格互動樣式 (新增) */
+.energy-data-table tr.tracker-active { 
+    background-color: rgba(225, 6, 0, 0.1) !important; 
+    border: 1px solid var(--color-red-f1); 
+} 
+.energy-data-table tr.tracker-active td { 
+    color: var(--color-text-light); 
+}
+
+/* 數據顏色強調 */
+.data-value {
+    font-weight: 700;
+}
+.data-high { color: var(--color-sdg-green); } 
+.data-medium { color: var(--color-sdg-yellow); } 
+.data-low { color: var(--color-red-f1); }
+
+/* RWD 調整 */
+@media (max-width: 768px) {
+    .page-hero-header {
+        padding: 80px 5% 40px;
+    }
+    .page-hero-header h1 {
+        font-size: 2rem;
+    }
+    .content-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/*
+ * ============================================
+ * === Health & Safety 專屬樣式 (SDG 3) ===
+ * ============================================
+ */
+
+/* 確保 SDG 顏色變數已定義：若沒有，請在 :root 中添加 */
+:root {
+    /* ... 其他顏色變數 ... */
+    --color-sdg-green: #4C9F38; /* SDG 3: 健康與福祉 */
+    --color-sdg-pink: #FF3A21;  /* SDG 5: 平等 (用於首頁卡片) */
+}
+
+/* 綠色 SDG Tag 背景色 */
+.sdg-green-bg {
+    background-color: var(--color-sdg-green);
+}
+
+/* Health 頁面頂部邊框使用綠色 */
+.page-hero-header[style*="--color-sdg-green"] {
+    border-bottom: 4px solid var(--color-sdg-green);
+}
+
+/* 內容區塊強調色 (讓 H3 使用綠色) */
+.health-explain .text-block h3 {
+    color: var(--color-sdg-green);
+}
+
+
+/* --- 時間軸樣式 (Timeline) --- */
+.timeline-container {
+    position: relative;
+    padding: 30px 0;
+    margin: 40px auto;
+    border-left: 2px solid var(--color-text-muted); /* 垂直線 */
+}
+
+.timeline-item {
+    position: relative;
+    padding: 0 0 40px 30px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: -8px; /* 定位在垂直線上 */
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-dark-surface);
+    border: 2px solid var(--color-text-muted);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item .timeline-year {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.timeline-highlight::before {
+    background-color: var(--color-sdg-green); /* 強調色實心圓 */
+    border-color: var(--color-sdg-green);
+}
+
+.timeline-highlight h3 {
+    color: var(--color-sdg-green) !important;
+}
+
+
+/* --- 工具卡片網格樣式 (Quiz and Widget) --- */
+.well-being-tools-section {
+    background-color: var(--color-dark-surface);
+}
+
+.tools-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.tool-card {
+    flex: 1;
+    background-color: var(--color-dark);
+    padding: 30px;
+    border: 1px solid #2a2a2a;
+    border-top: 5px solid var(--color-sdg-green); /* 頁面強調色 */
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tool-card i {
+    font-size: 3rem;
+    color: var(--color-sdg-green);
+    margin-bottom: 20px;
+}
+
+.tool-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--color-text-light);
+}
+
+.tool-card p {
+    color: var(--color-text-muted);
+    margin-bottom: 25px;
+    min-height: 60px;
+}
+
+.primary-button {
+    background-color: var(--color-sdg-green);
+    color: var(--color-dark);
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.primary-button:hover {
+    background-color: var(--color-text-light);
+    color: var(--color-dark);
+}
+
+/* RWD 調整 */
+@media (max-width: 768px) {
+    .tools-grid {
+        flex-direction: column;
+    }
+}
+
+/*
+ * ============================================
+ * === Equality 專屬樣式 (SDG 5) ===
+ * ============================================
+ */
+
+/* 確保 SDG 顏色變數已定義：若沒有，請在 :root 中添加 */
+:root {
+    /* ... 其他顏色變數 ... */
+    --color-sdg-pink: #FF3A21;  /* SDG 5: 平等 */
+}
+
+/* 粉色 SDG Tag 背景色 */
+.sdg-pink-bg {
+    background-color: var(--color-sdg-pink);
+}
+
+/* Equality 頁面頂部邊框使用粉色 */
+.equality-header {
+    border-bottom: 4px solid var(--color-sdg-pink);
+}
+
+/* 內容區塊強調色 (讓 H3 使用粉色) */
+.profiles-section h3 {
+    color: var(--color-sdg-pink);
+}
+
+/* --- 人物簡介網格樣式 (Profile Grid) --- */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.profile-card {
+    background-color: var(--color-dark-surface);
+    padding: 20px;
+    border-radius: 5px;
+    border-left: 5px solid var(--color-sdg-pink); /* 強調邊界 */
+}
+
+.profile-card [class^="Image"] {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-color: #333; /* 模擬圖片 */
+    margin-bottom: 15px;
+    border-radius: 3px;
+    line-height: 200px;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.profile-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-card .role {
+    display: block;
+    color: var(--color-red-f1);
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+
+/* --- 意識工具卡片網格樣式 (Mentorship and Quiz) --- */
+
+.awareness-tools-section .tool-card {
+    border-top-color: var(--color-sdg-pink); /* 卡片邊框使用粉色 */
+}
+
+.awareness-tools-section .tool-card i {
+    color: var(--color-sdg-pink); /* 圖標使用粉色 */
+}
+
+.pink-button {
+    background-color: var(--color-sdg-pink);
+    color: var(--color-dark) !important;
+}
+
+.pink-button:hover {
+    background-color: var(--color-text-light);
+}
+
+/* RWD 調整 */
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
