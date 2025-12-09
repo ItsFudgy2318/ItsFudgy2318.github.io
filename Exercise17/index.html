@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 17</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .block {
+            min-height: 80px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .header-block {
+            background-color: #90EE90;
+            min-height: 120px;
+        }
+
+        .cyan-block {
+            background-color: #00BCD4;
+        }
+        
+        .content-area {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .footer-item {
+            width: 49%;
+            min-height: 60px;
+            background-color: #F0F0F0;
+            margin-bottom: 10px;
+        }
+
+        @media screen and (min-width: 720px) {
+            .container {
+                max-width: 900px;
+            }
+
+            .content-area {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+            
+            .cyan-block {
+                width: calc(33.33% - 7px);
+                min-height: 150px;
+                margin-bottom: 0;
+            }
+
+            .footer-area {
+                flex-wrap: nowrap;
+            }
+
+            .footer-item {
+                width: calc(25% - 7.5px);
+                min-height: 60px;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="block header-block"></div>
+
+        <div class="content-area">
+            <div class="block cyan-block block-1"></div>
+            <div class="block cyan-block block-2"></div>
+            <div class="block cyan-block block-3"></div>
+        </div>
+
+        <div class="footer-area">
+            <div class="block footer-item item-1"></div>
+            <div class="block footer-item item-2"></div>
+            <div class="block footer-item item-3"></div>
+            <div class="block footer-item item-4"></div>
+        </div>
+    </div>
+</body>
+</html>
